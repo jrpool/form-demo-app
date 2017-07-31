@@ -11,6 +11,7 @@
     "lint": "eslint app.js; exit 0"
   },
   "dependencies": {
+    "body-parser": "~1.16.0",
     "express": "~4.14.1"
   },
   "devDependencies": {
