@@ -2,72 +2,69 @@
 const app = require('express')();
 
 // Import required modules.
-const querystring = require('querystring');
-const rpn = require('request-promise-native');
-const cheerio = require('cheerio');
+const formParser = require('body-parser').urlencoded(
+  {extended: false, inflate: false, limit: 200, parameterLimit: 2}
+);
+const body-parser = require('body-parser');
 
-// Identify the external request that will be made, except the “q” parameter.
-const url = 'http://www.imdb.com/find';
-const queryParams = {
-  q: '',
-  ref_: 'nv_sr_fn',
-  s: 'all'
-};
+// Define a function that returns the requested form.
+const form = method => `<!DOCTYPE html><html lang='en'>\n\n
+  <head><meta charset='utf-8'><title>Form Demo App</title></head>\n\n
+  <body>
+    <h3>Form with method set to ${method}</h3>\n\n
+    <form name='artist' action='/submit-form>'\n\n
+      <p>
+        Artist Name <input name='name' type='text' size='70' maxwidth='70'>
+      </p>\n\n
+      <p>
+        Country <input name='country' type='text' size='60' maxwidth='60'>
+      </p>\n\n
+      <p><button type='submit'>Submit</button></p>\n\n
+    </form>\n\n
+  </body>\n\n
+</html>`;
 
-// Formulate an error report.
-const reportError = (clause, error) =>
-  `Could not ${clause}.\nError: ${error.message}\n`;
-
-/**
-  Define a function to extract an array of title lines from an HTML document
-  served by IMDB in response to a search.
-*/
-const titleList = body => {
-  const $ = cheerio.load(body);
-  const listCells =
-    $('a[name=tt]')
-      .parent()
-      .parent()
-      .children('table')
-      .children('tr')
-      .children('td.result_text');
-  const listTexts = [];
-  listCells.each((index, element) => {
-    listTexts.push($(element).text().replace(/^ +/, ''));
-  });
-  return listTexts;
-};
-
-/*
-  Define a function to convert an array of IMDB title lines to an indented
-  JSON string.
-*/
-const jsonify = listTexts => {
-  const listObject = {'movies': []};
-  listTexts.forEach(listText => {
-    // Ignore lines deviating from title (year) format.
-    const subTexts = listText.match(/^([^()]+) \((\d{4})\)/);
-    if (subTexts) {
-      listObject.movies.push({'name': subTexts[1], 'year': subTexts[2]});
-    }
-  });
-  return JSON.stringify(listObject, null, 2);
-};
+// Define a function that converts an object to an indented JSON string.
+const jsonify = object => JSON.stringify(object, null, 2);
 
 /// /// CLIENT REQUEST ROUTES /// ///
 
-// Perform a search.
+// Render the GET form.
 app.get(
-  '/api/search/:q',
+  '/form-get',
   (req, res) => {
-    queryParams.q = req.params.q;
-    const urlWithQuery = url + '?' + querystring.stringify(queryParams);
-    rpn(urlWithQuery)
-      .then(body => {
-        res.set('Content-Type', 'application/json');
-        res.send(Buffer.from(jsonify(titleList(body))));
-      })
-      .catch(err => {reportError('perform your search', err);});
+    res.send(form('GET'));
+  }
+);
+
+// Render the POST form.
+app.get(
+  '/form-post',
+  (req, res) => {
+    res.send(form('POST'));
+  }
+);
+
+// Handle the form submission.
+app.get(
+  '/form-post',
+  formParser,
+  (req, res) => {
+    const response = {};
+    if (req.method === 'GET') {
+      response['body-params'] = {};
+      for (const property of Object.keys(req.query)) {
+        response['query-params'][property] = req.query[property];
+      }
+    }
+    else {
+      response['query-params'] = {};
+      for (const property of Object.keys(req.body)) {
+        response['body-params'][property] = req.body[property];
+      }
+    }
+    res.set('Content-Type', 'application/json');
+    res.send(Buffer.from(jsonify(response)));
   }
 );
 
