@@ -5,7 +5,6 @@ const app = require('express')();
 const formParser = require('body-parser').urlencoded(
   {extended: false, inflate: false, limit: 200, parameterLimit: 2}
 );
-const body-parser = require('body-parser');
 
 // Define a function that returns the requested form.
 const form = method => `<!DOCTYPE html><html lang='en'>\n\n
