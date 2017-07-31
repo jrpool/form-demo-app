@@ -11,7 +11,7 @@ const form = method => `<!DOCTYPE html><html lang='en'>\n\n
   <head><meta charset='utf-8'><title>Form Demo App</title></head>\n\n
   <body>
     <h3>Form with method set to ${method}</h3>\n\n
-    <form name='artist' action='/submit-form>'\n\n
+    <form name='artist' action='/submit-form'>\n\n
       <p>
         Artist Name <input name='name' type='text' size='70' maxwidth='70'>
       </p>\n\n
