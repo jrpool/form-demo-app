@@ -13,7 +13,7 @@ const form = method => `<!DOCTYPE html><html lang='en'>\n\n
     <h3>Form with method set to ${method}</h3>\n\n
     <form name='artist' action='/submit-form'>\n\n
       <p>
-        Artist Name <input name='name' type='text' size='70' maxwidth='70'>
+        Artist Name <input name='artist' type='text' size='70' maxwidth='70'>
       </p>\n\n
       <p>
         Country <input name='country' type='text' size='60' maxwidth='60'>
@@ -49,15 +49,13 @@ app.get(
   '/submit-form',
   formParser,
   (req, res) => {
-    const response = {};
+    const response = {'body-params': {}, 'query-params': {}};
     if (req.method === 'GET') {
-      response['body-params'] = {};
       for (const property of Object.keys(req.query)) {
         response['query-params'][property] = req.query[property];
       }
     }
     else {
-      response['query-params'] = {};
       for (const property of Object.keys(req.body)) {
         response['body-params'][property] = req.body[property];
       }
