@@ -11,7 +11,11 @@ const form = method => `<!DOCTYPE html><html lang='en'>\n\n
   <head><meta charset='utf-8'><title>Form Demo App</title></head>\n\n
   <body>
     <h3>Form with method set to ${method}</h3>\n\n
-    <form name='artist' action='/submit-form'>\n\n
+    <form
+      name='artist'
+      action='/submit-form'
+      method='${method.toLowerCase()}'
+    >\n\n
       <p>
         Artist Name <input name='artist' type='text' size='70' maxwidth='70'>
       </p>\n\n
@@ -45,7 +49,7 @@ app.get(
 );
 
 // Handle the form submission.
-app.get(
+app.all(
   '/submit-form',
   formParser,
   (req, res) => {
