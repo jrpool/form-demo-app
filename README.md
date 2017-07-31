@@ -49,14 +49,16 @@ Make that parent directory your working directory, by executing, for example:
 
 To start the application, execute `npm start` (or, if under Windows, `npm run startwin`).
 
-To reqest a form, use a web browser to request either of these URLs:
+To reqest a form while the application is running, use a web browser to request either of these URLs:
 
 `http://localhost:3000/form-get`
 `http://localhost:3000/form-post`
 
 Complete the form that is served and submit it.
 
-The response to your submission will be an application/JSON document containing a JSON string representing an object with 2 properties: `body-params` and `query-params`. The former will be empty if you submitted the GET form, and the latter will be empty if you submitted the POST form.
+The response to your submission will be an application/JSON document containing a JSON string representing an object with 2 properties: `body-params` and `query-params`. The former will be empty if you submitted the GET form, and the latter will be empty if you submitted the POST form. The non-empty property’s value will be an object with a property for each field in the form you submitted.
+
+To stop the application, send a SIGINT signal to its process, by entering the keypress CONTROL-C in the terminal window.
 
 To perform linting, execute `npm run lint`.
 
