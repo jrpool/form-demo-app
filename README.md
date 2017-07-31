@@ -33,7 +33,7 @@ Make that parent directory your working directory, by executing, for example:
 
     `cd ~/Documents/projects`
 
-2. Clone this project’s repository into it, thereby creating the project directory, named `file-api`, by executing:
+2. Clone this project’s repository into it, thereby creating the project directory, named `form-demo-api`, by executing:
 
     `git clone https://github.com/jrpool/form-demo-app.git json-api-promise`
 
