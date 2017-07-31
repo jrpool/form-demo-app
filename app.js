@@ -71,5 +71,7 @@ app.get(
 
 // Make the application listen for queries.
 app.listen(3000, () => {
-  console.log('App queriable at http://localhost:3000/api/search/«query»');
+  console.log(
+    'App queriable at http://localhost:3000/form-get or http://localhost:3000/form-post'
+  );
 });
