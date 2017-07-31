@@ -46,7 +46,7 @@ app.get(
 
 // Handle the form submission.
 app.get(
-  '/form-post',
+  '/submit-form',
   formParser,
   (req, res) => {
     const response = {};
