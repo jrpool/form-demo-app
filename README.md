@@ -49,7 +49,7 @@ Make that parent directory your working directory, by executing, for example:
 
 To start the application, execute `npm start` (or, if under Windows, `npm run startwin`).
 
-To reqest a form while the application is running, use a web browser to request either of these URLs:
+To request a form while the application is running, use a web browser to request either of these URLs:
 
 `http://localhost:3000/form-get`
 `http://localhost:3000/form-post`
