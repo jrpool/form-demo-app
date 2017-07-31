@@ -17,10 +17,12 @@ const form = method => `<!DOCTYPE html><html lang='en'>\n\n
       method='${method.toLowerCase()}'
     >\n\n
       <p>
-        Artist Name <input name='artist' type='text' size='70' maxwidth='70'>
+        Artist Name
+        <input name='artist' type='text' size='70' maxlength='70'>
       </p>\n\n
       <p>
-        Country <input name='country' type='text' size='60' maxwidth='60'>
+        Country
+        <input name='country' type='text' size='60' maxlength='60'>
       </p>\n\n
       <p><button type='submit'>Submit</button></p>\n\n
     </form>\n\n
